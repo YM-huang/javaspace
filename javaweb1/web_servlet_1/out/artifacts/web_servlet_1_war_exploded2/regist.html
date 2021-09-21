@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>会员注册界面</title>
+</head>
+<body>
+    <form action="regist.do" method="post" enctype="application/x-www-form-urlencoded">
+        <table style="border: 1px solid #00ffcc;" rules=none cellspacing=0 width=340 align=center>
+            <tr height="40">
+                <td colspan="2">
+                    <h2 align=center>
+                        <font color=blue>企业会员注册</font>
+                    </h2>
+                </td>
+            </tr>
+
+            <tr>
+                <td height=40 align=right width=80>用&nbsp;&nbsp;&nbsp;户&nbsp;&nbsp;&nbsp;名</td>
+                <td><input style="width: 95%; height: 25px;"
+                           type="text" value="请输入用户名"
+                           onFocus="if(value==defaultValue){value='';this.style.color='#000'}"
+                           onBlur="if(!value){value=defaultValue; this.style.color='#999'}"
+                           style="color: #999" name="userName" id="userName"></td>
+            </tr>
+            <tr>
+                <td height=40 align=right width=80>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</td>
+                <td height=40><input style="width: 95%; height: 25px;"
+                                     type="text" value="请输入密码"
+                                     onFocus="if(value==defaultValue){value='';this.style.color='#000'}"
+                                     onBlur="if(!value){value=defaultValue; this.style.color='#999'}"
+                                     style="color: #999" name="password" id="password"></td>
+            </tr>
+            <tr>
+            <td height=40 align=right width=80>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</td>
+            <td height=40><input style="width: 95%; height: 25px;"
+                                 type="text" value="请输入姓名"
+                                 onFocus="if(value==defaultValue){value='';this.style.color='#000'}"
+                                 onBlur="if(!value){value=defaultValue; this.style.color='#999'}"
+                                 style="color: #999" name="name" id="name"></td>
+            </tr>
+            <tr>
+                <td height=40 align=right width=80>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别</td>
+                <td height=40>
+                    <input type="radio" name="sex" value="male" id="sex1"/><label for="sex1">男</label>
+                    <input type="radio" name="sex" value="female" id="sex2"/><label for="sex2">女</label>
+                </td>
+            </tr>
+            <tr>
+            <td height=40 align=right width=80>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱</td>
+            <td height=40><input style="width: 95%; height: 25px;"
+                                 type="text" value="请输入邮箱"
+                                 onFocus="if(value==defaultValue){value='';this.style.color='#000'}"
+                                 onBlur="if(!value){value=defaultValue; this.style.color='#999'}"
+                                 style="color: #999" name="email" id="email"></td>
+            </tr>
+            <tr>
+            <td height=40 align=right width=80>手&nbsp;&nbsp;&nbsp;机&nbsp;&nbsp;&nbsp;号</td>
+            <td height=40><input style="width: 95%; height: 25px;"
+                                 type="text" value="请输入手机号"
+                                 onFocus="if(value==defaultValue){value='';this.style.color='#000'}"
+                                 onBlur="if(!value){value=defaultValue; this.style.color='#999'}"
+                                 style="color: #999" name="phone" id="phone"></td>
+            </tr>
+
+            <tr>
+                <td height=40 colspan=2 align=center>
+                    <input type="image" src="../../../photo/login.png" name="img" width="150" height="50" />
+            </tr>
+
+        </table>
+    </form>
+</body>
+</html>

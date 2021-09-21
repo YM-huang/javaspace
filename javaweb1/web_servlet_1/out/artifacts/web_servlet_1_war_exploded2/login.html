@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>会员登录界面</title>
+</head>
+<body>
+    <form action="login.do" method="post" onSubmit="return custCheck()" enctype="application/x-www-form-urlencoded">
+        <table style="border: 1px solid #00ffcc;" rules=none cellspacing=0 width=340 align=center>
+            <tr height="40">
+                <td colspan="2">
+                    <h2 align=center>
+                        <font color=blue>企业会员登录</font>
+                    </h2>
+                </td>
+            </tr>
+
+            <tr>
+                <td height=40 align=right width=80>用&nbsp;&nbsp;&nbsp;户&nbsp;&nbsp;&nbsp;名</td>
+                <td><input style="width: 95%; height: 25px;"
+                           type="text" value="请输入用户名"
+                           onFocus="if(value==defaultValue){value='';this.style.color='#000'}"
+                           onBlur="if(!value){value=defaultValue; this.style.color='#999'}"
+                           style="color: #999" name="userName" id="userName"></td>
+            </tr>
+            <tr>
+                <td height=40 align=right width=80>密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</td>
+                <td height=40><input style="width: 95%; height: 25px;"
+                                     type="text" value="请输入密码"
+                                     onFocus="if(value==defaultValue){value='';this.style.color='#000'}"
+                                     onBlur="if(!value){value=defaultValue; this.style.color='#999'}"
+                                     style="color: #999" name="password" id="password"></td>
+            </tr>
+
+            <tr>
+                <td height=40 align=left>
+                    &nbsp;<input type="checkbox"  value="rememberme">记住我
+                </td>
+                <td height=40 align=right>
+                    <a href="" style='text-decoration: none;'>
+                        <font color=blue>忘记密码？&nbsp;</font></a>
+                </td>
+            </tr>
+
+            <tr>
+                <td height=40 colspan=2 align=center>
+                    <input type="image" src="../../../photo/login.png" name="img" width="150" height="50" />
+            </tr>
+
+            <tr>
+                <td height=40 colspan=2 align=right>没有帐号？
+                    <a href="regist.html" style='text-decoration: none;'>
+                        <font color=red>免费注册&nbsp;&nbsp;&nbsp;</font></a>
+            </tr>
+
+        </table>
+    </form>
+</body>
+</html>
