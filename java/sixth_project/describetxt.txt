@@ -1,0 +1,2 @@
+DataOutputStream是读入类型最大的大小而OutputStreamWriter多少个字符读多少位。
+概括：dataOutputStreams用于二进制数据。writer（包括PrintWriter）用于文本数据
