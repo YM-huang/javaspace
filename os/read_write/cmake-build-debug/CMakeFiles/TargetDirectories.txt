@@ -1,0 +1,3 @@
+D:/JetBrains/CLion 2021.2.3/clionproject/read_write/cmake-build-debug/CMakeFiles/read_write.dir
+D:/JetBrains/CLion 2021.2.3/clionproject/read_write/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/JetBrains/CLion 2021.2.3/clionproject/read_write/cmake-build-debug/CMakeFiles/rebuild_cache.dir

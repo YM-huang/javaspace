@@ -1,0 +1,3 @@
+D:/JetBrains/CLion 2021.2.3/clionproject/bank_aigrithym/cmake-build-debug/CMakeFiles/bank_aigrithym.dir
+D:/JetBrains/CLion 2021.2.3/clionproject/bank_aigrithym/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/JetBrains/CLion 2021.2.3/clionproject/bank_aigrithym/cmake-build-debug/CMakeFiles/rebuild_cache.dir
