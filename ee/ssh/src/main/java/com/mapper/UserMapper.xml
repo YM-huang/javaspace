@@ -3,15 +3,15 @@
         PUBLIC "-//Mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.mybatis.mapper.UserMapper">
+<mapper namespace="com.mapper.UserMapper">
     <select id="selectUserById" parameterType="Integer" resultType="com.pojo.Customer">
-        Select * from user where uid = #{uid}
+        Select * from customer where  = #{account}
     </select>
     <insert id="addUser" parameterType="com.pojo.Customer">
-        Insert into user (uid,uname,usex) values(#{uid},#{uname},#{usex})
+        INSERT into useres values(#{account},#{password})
     </insert>
     <update id="updateUser" parameterType="com.pojo.Customer">
-        update user set uname=#{uname}, usex=#{usex} where uid=#{uid}
+        update customer set Password=#{Password} where Account=#{account}
     </update>
 
 </mapper>

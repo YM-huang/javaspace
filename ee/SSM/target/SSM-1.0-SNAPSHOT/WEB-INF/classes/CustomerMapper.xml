@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.ee_9.po.Customer">
+    <select id="getCustomerByID" resultType="com.example.ee_9.po.Customer" parameterType="int">
+        SELECT * from customer where customerID = #{id}
+    </select>
+    <insert id="insertCustomer" parameterType="com.example.ee_9.po.Customer" useGeneratedKeys="true" keyProperty="customerID">
+        INSERT into customer values(DEFAULT ,#{account},#{password},"",#{sex},NULL,"","","","","")
+    </insert>
+
+</mapper>

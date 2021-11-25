@@ -1,0 +1,45 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+ http://www.springframework.org/schema/beans/spring-beans.xsd
+ http://www.springframework.org/schema/context
+ http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="userDAO" class="com.example.ee_9.dao.CustomerDAO" />
+
+    <bean id="userService" class="com.example.ee_9.service.UserService">
+        <property name="customerDAO" ref="userDAO" />
+    </bean>
+
+<!--    DataSource:使用Spring的数据源替换MyBatis的配置-->
+    <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+        <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/hibernatedb?useUnicode=true&amp;characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=GMT%2B8"/>
+        <property name="username" value="root"/>
+        <property name="password" value="huangyimiao0129"/>
+        <property name="minIdle" value="10"/>
+    </bean>
+
+<!--     3) 获取 SqlSessionFactory 工厂类-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 注入连接池
+         给 sqlsessionFactory 的属性 dataSource 赋值
+            ref="引用该 spring容器 中的另一个 bean的id"
+        -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 注入 映射文件 mapper
+         给 sqlsessionFactory 的属性 mapperLocation 赋值
+           value="映射文件 XXXmapper.xml 的相对路径"
+          -->
+        <property name="mapperLocations" value="classpath:CustomerMapper.xml"/>
+    </bean>
+<!--     4) 搜索有哪些 mapper 实现类，把mapper接口自动配置成 spring 中的 <bean>-->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <!-- 给 SqlSessionTemplate 的构造函数赋值-->
+        <constructor-arg index="0" ref="sqlSessionFactory" />
+    </bean>
+    <bean id="userAction" class="com.example.ee_9.action.UserAction">
+        <property name="userService" ref="userService"></property>
+    </bean>
+</beans>

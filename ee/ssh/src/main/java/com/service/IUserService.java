@@ -1,7 +1,9 @@
 package com.service;
 
+import com.pojo.Customer;
+
 public class IUserService {
-    public void register() {
+    public void register(Customer cust) {
 
     }
 }
