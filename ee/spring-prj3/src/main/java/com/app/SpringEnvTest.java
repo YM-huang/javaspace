@@ -7,13 +7,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class SpringEnvTest {
     public static void main(String[] args) {
-        ApplicationContext ctx = new ClassPathXmlApplicationContext(
-                "applicationContext.xml");
+        ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
         IUserService userService = (IUserService)
-                ctx.getBean("userService");
+                ctx.getBean("logProxy");
         Customer cust = new Customer();
-        cust.setAccount("SPRING");
-        cust.setPassword("SPRING");
+        cust.setAccount("awG");
+        cust.setPassword("SPssas514ING");
         userService.addUser(cust);
     }
 }

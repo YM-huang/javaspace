@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.CustomerDAO">
+
+<!--    <cache type="org.mybatis.caches.ehcache.EhcacheCache"/>-->
+
+    <insert id="addUser">
+        INSERT INTO useres(username,password) VALUES (#{account},#{password});
+    </insert>
+
+    <select id="selectLogin" resultType="com.po.Customer" parameterType="java.util.Map">
+        select Account,Password from customer where Account=#{account};
+    </select>
+
+</mapper>

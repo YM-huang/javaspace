@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+    <!-- 启动使用注解配置 AOP 支持 -->
+    <aop:aspectj-autoproxy />
+    <!-- 1、配置数据库相关参数 -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <!-- 定义增强处理拦截方法 -->
+    <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            <tx:method name="add*" propagation="REQUIRED" />
+            <tx:method name="update*" propagation="REQUIRED" />
+            <tx:method name="delete*" propagation="REQUIRED" />
+            <tx:method name="del*" propagation="REQUIRED" />
+            <tx:method name="*" read-only="true" />
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- 增强处理定义 -->
+    <bean id="logAdvice" class="com.advice.LoggingAdvice" />
+
+    <!-- 2、数据库连接池 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+        <!-- 配置连接池属性 -->
+        <property name="driverClass" value="${jdbc.driverClass}" />
+        <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/hibernatedb?useSSL=false&amp;serverTimezone=UTC"/>
+        <property name="user" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+
+        <!--c3p0私有属性-->
+        <property name="maxPoolSize" value="30"/>
+        <property name="minPoolSize" value="10"/>
+        <!--关闭连接后不自动commit-->
+        <property name="autoCommitOnClose" value="false"/>
+
+        <!--获取连接超时时间-->
+<!--        <property name="checkoutTimeout" value="1000"/>-->
+        <!--当获取连接失败重试次数-->
+        <property name="acquireRetryAttempts" value="2"/>
+
+    </bean>
+
+    <!-- spring和MyBatis完美整合，不需要mybatis的配置映射文件 -->
+    <bean id="SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 注入数据库连接池 -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 配置MyBaties全局配置文件:mybatis-config.xml -->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+        <!-- 扫描sql配置文件:mapper需要的xml文件 -->
+        <!-- 这是配置xml扫描的，当只要用注解不用xml，可以不要下面这个配置-->
+        <property name="mapperLocations" value="classpath:mapper/*.xml" />
+    </bean>
+
+
+    <!--配置sqlSessionTemplate：通过带参数的构造方法创建对象 -->
+    <!--    如果只要使用注解,不需要配置这个，这个是给xml使用的-->
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <!-- 以sqlSessionFactory为参数传入构造函数中 -->
+        <constructor-arg ref="SqlSessionFactory" />
+    </bean>
+
+    <!--    &lt;!&ndash; 配置 Spring 的 org.springframework.jdbc.core.JdbcTemplate &ndash;&gt;-->
+    <!--    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">-->
+    <!--        <property name="dataSource" ref="dataSource"></property>-->
+    <!--    </bean>-->
+
+    <!-- 扫描basePackage下所有以@MyBatisDao注解的接口 -->
+    <!-- 这是扫描注解的，当只使用xml，不要注解的话，可以把整个MapperScannerConfigurer删掉-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 给出需要扫描Dao接口包，扫描位置一定要准确 -->
+        <property name="basePackage" value="com.dao"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <!--事务管理器配置-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 注入数据库连接池 -->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- 使用注解定义事务 -->
+    <!--    <tx:annotation-driven transaction-manager="transactionManager"/>-->
+
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+        <!-- 给 SqlSessionTemplate 的构造函数赋值-->
+        <constructor-arg index="0" ref="SqlSessionFactory" />
+    </bean>
+
+    <bean id="userDAO" class="com.dao.CustomerDAO" />
+    <bean id="userService" class="com.service.UserService">
+        <property name="customerDAO" ref="userDAO" />
+    </bean>
+    <bean id="securityHandler" class="com.aspect.SecurityHandler" />
+    <bean id="securityHandler2"
+          class="com.aspect.SecurityHandler2" />
+
+    <!--设定代理-->
+    <bean id="logProxy"
+          class="org.springframework.aop.framework.ProxyFactoryBean">
+        <!--设定代理的是接口-->
+        <property name="proxyInterfaces">
+            <value>com.service.IUserService</value>
+        </property>
+        <!--设定代理的目标类-->
+        <property name="target">
+            <ref bean="userService"/>
+        </property>
+        <!--设定切入的 Advice-->
+        <property name="interceptorNames">
+            <list>
+                <value>logAdvice</value>
+            </list>
+        </property>
+    </bean>
+    <!-- 配置文件的方式 -->
+    <aop:config>
+        <aop:pointcut id="allServiceMethod"
+                      expression="execution(* com.service.*.*(..))" />
+        <aop:advisor pointcut-ref="allServiceMethod"
+                     advice-ref="txAdvice" />
+    </aop:config>
+</beans>

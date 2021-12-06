@@ -2,11 +2,11 @@ package com.service;
 
 import com.po.Customer;
 
-public class IUserService {
-    public void register(Customer cust) {
+public interface IUserService {
+    public default void register(Customer cust) {
 
     }
 
-    public void addUser(Customer cust) {
+    public default void addUser(Customer cust) {
     }
 }

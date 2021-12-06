@@ -2,13 +2,13 @@ package com.dao;
 
 import com.po.Customer;
 
-public class ICustomerDAO {
-    public void save(Customer cust) {
+public  interface  ICustomerDAO {
+    public default void save(Customer cust) {
     }
-    public void delete(Customer transientInstance) {
+    public default void delete(Customer transientInstance) {
     }
-    public void update(Customer transientInstance) {
+    public default void update(Customer transientInstance) {
     }
-    public void findByHQL(String hql) {
+    public default void findByHQL(String hql) {
     }
 }

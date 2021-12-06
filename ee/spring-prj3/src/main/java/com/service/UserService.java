@@ -3,12 +3,18 @@ package com.service;
 import com.dao.ICustomerDAO;
 import com.po.Customer;
 
-public class UserService extends IUserService {
+public class UserService implements IUserService {
     private ICustomerDAO customerDAO = null;
     public void setCustomerDAO(ICustomerDAO customerDAO) {
         System.out.println("call setCustomerDAO in UserService.");
         this.customerDAO = customerDAO;
     }
+
+    @Override
+    public void register(Customer cust) {
+
+    }
+
     @Override
     public void addUser(Customer cust) {
         System.out.println("execute --addUser()-- method.");
