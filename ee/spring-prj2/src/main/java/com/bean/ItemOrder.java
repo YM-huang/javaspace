@@ -1,8 +1,16 @@
 package com.bean;
 
-public class ItemOrder implements IItemOrder {
+import org.springframework.beans.factory.InitializingBean;
+
+public class ItemOrder implements IItemOrder , InitializingBean {
     private IItem item;
     private int numItems;
+    public void init() {
+        System.out.println(" 正在执行初始化方法 init...");
+    }
+    public ItemOrder() {
+        System.out.println("Spring 实例化 ItemOrder...");
+    }
     @Override
     public void incrementNumItems() {
         setNumItems(getNumItems() + 1);
@@ -23,6 +31,7 @@ public class ItemOrder implements IItemOrder {
 
     @Override
     public void setItem(IItem item) {
+        System.out.println("Spring 注入 item...");
         this.item = item;
     }
 
@@ -38,6 +47,12 @@ public class ItemOrder implements IItemOrder {
 
     @Override
     public void setNumItems(int numItems) {
+        System.out.println("Spring 注入 numItems...");
         this.numItems = numItems;
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println(" 正在执行初始化方法 afterPropertiesSet...");
     }
 }

@@ -4,7 +4,7 @@
        xmlns:p="http://www.springframework.org/schema/p"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
-    <bean id="item1" class="com.bean.Item">
+    <bean id="item1" class="com.bean.Item" scope="singleton">
         <constructor-arg index="0" type="java.lang.String">
             <value>978-7-121-12345-1</value>
         </constructor-arg>
@@ -19,7 +19,7 @@ http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
             <value>19.95</value>
         </constructor-arg>
     </bean>
-    <bean id="item2" class="com.bean.Item">
+    <bean id="item2" class="com.bean.Item"  scope="prototype">
         <constructor-arg index="0" type="java.lang.String">
             <value>978-7-121-12345-2</value>
         </constructor-arg>
@@ -34,13 +34,18 @@ http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
             <value>29.95</value>
         </constructor-arg>
     </bean>
-    <bean id="itemorder1" class="com.bean.ItemOrder">
+    <bean id="itemorder1" class="com.bean.ItemOrder"
+          init-method="init">
         <property name="numItems"> <value>1</value> </property>
         <property name="item"> <ref bean="item1"/> </property>
     </bean>
-    <bean id="itemorder2" class="com.bean.ItemOrder">
-        <property name="numItems"> <value>2</value> </property>
-        <property name="item"> <ref bean="item2"/> </property>
+    <bean id="itemorderFactory"
+          class="com.bean.ItemOrderFactory"/>
+    <bean id="itemorder2" class="com.bean.ItemOrder"
+          factory-method="createItemOrder"
+          factory-bean="itemorderFactory">
+        <property name="numItems"> <value>1</value> </property>
+        <property name="item"> <ref bean="item1"/> </property>
     </bean>
     <bean id="shoppingcart" class="com.bean.ShoppingCart">
         <property name="itemsOrdered">
@@ -50,4 +55,16 @@ http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
             </list>
         </property>
     </bean>
+    <bean id="messageSource" class=
+            "org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>com/local/message</value>
+                <!-- 如果有多个资源文件，全部列在此处 -->
+            </list>
+        </property>
+    </bean>
+    <bean class="com.listener.EmailNotifier"/>
+
+
 </beans>
