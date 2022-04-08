@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java/com/edu/zjut/cn/Interface/Observer.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/edu/zjut/cn/Observer/GeneratePrice.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/edu/zjut/cn/Observer/GeneratePrice.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/edu/zjut/cn/Observer/TimeCraphObserver.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/edu/zjut/cn/Observer/TimeCraphObserver.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/edu/zjut/cn/Subject/PriceDateSubject.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/edu/zjut/cn/Subject/PriceDateSubject.txt" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/edu/zjut/cn/Test/TestObserver.java" charset="GBK" />
+  </component>
+</project>
